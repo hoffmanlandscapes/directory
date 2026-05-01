@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hoffman Landscapes / Kent Greenhouse & Gardens — Associate Directory</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Brand palette */
+  --green:       #008045;  /* Hoffman Green — primary */
+  --deep-blue:   #2C3E50;  /* Contrast — headers, sidebar active */
+  --burgundy:    #7B130F;  /* Contrast — accents */
+  --sage:        #A7B79D;  /* Accent */
+  --soft-sand:   #D4C1A6;  /* Accent */
+  --black:       #000000;
+  --white:       #FFFFFF;
+
+  /* Derived UI tokens */
+  --header-bg:   #1a2e1a;   /* Very dark green — title legible */
+  --tab-bg:      var(--deep-blue);
+  --sidebar-bg:  #f7f4ef;
+  --body-bg:     #fefcf8;
+  --card-bg:     #ffffff;
+  --border:      #ddd6cb;
+  --text-dark:   #1a1a1a;
+  --text-mid:    #555555;
+  --text-light:  #888888;
+  --mist:        #eef4f0;
+
+  /* Location accent strips */
+  --hl-strip:    var(--green);
+  --kgh-strip:   #3d7a40;
+  --acs-strip:   #8b6f4e;
+
+  /* Tag backgrounds */
+  --tag-hl:      #d0e8d8;
+  --tag-kgh:     #cce5c8;
+  --tag-acs:     #e5d8c8;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--body-bg);
+  color: var(--text-dark);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.site-header {
+  background: var(--header-bg);
+  padding: 0 48px;
+  position: relative;
+  overflow: hidden;
+}
+.site-header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--green) 0%, var(--sage) 50%, var(--soft-sand) 100%);
+}
+.site-header::after {
+  content: '';
+  position: absolute;
+  right: -60px; top: -60px;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  background: rgba(0,128,69,0.08);
+  pointer-events: none;
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  padding: 28px 0;
+  position: relative;
+  z-index: 1;
+}
+.header-brand {
+  border-right: 1px solid rgba(255,255,255,0.1);
+  padding-right: 36px;
+}
+.header-eyebrow {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--sage);
+  display: block;
+  margin-bottom: 8px;
+}
+.header-brand h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.15;
+}
+.header-desc {
+  font-size: 12px;
+  color: var(--soft-sand);
+  font-weight: 300;
+  max-width: 340px;
+  line-height: 1.7;
+  opacity: 0.85;
+}
+
+/* ── TABS ── */
+.tab-bar {
+  background: var(--deep-blue);
+  padding: 0 48px;
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.tab-btn {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  color: rgba(255,255,255,0.5);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 15px 22px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+.tab-btn:hover { color: rgba(255,255,255,0.85); }
+.tab-btn.active { color: var(--white); border-bottom-color: var(--soft-sand); }
+
+/* ── LAYOUT ── */
+.app-body { display: flex; min-height: calc(100vh - 146px); }
+
+/* SharePoint iframe compatibility */
+@supports (height: 100dvh) {
+  .app-body { min-height: calc(100dvh - 146px); }
+  .sidebar { height: calc(100dvh - 146px); }
+}
+
+.sidebar {
+  width: 250px;
+  flex-shrink: 0;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  padding: 20px 0;
+  position: sticky;
+  top: 0;
+  height: calc(100vh - 146px);
+  overflow-y: auto;
+}
+.sidebar-section { margin-bottom: 24px; }
+.sidebar-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-light);
+  padding: 0 18px;
+  margin-bottom: 6px;
+  display: block;
+}
+.sidebar-btn {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 8px 18px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-mid);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  border-left: 3px solid transparent;
+}
+.sidebar-btn:hover { background: #ede8e0; color: var(--text-dark); }
+.sidebar-btn.active {
+  background: #e4ddd4;
+  color: var(--deep-blue);
+  border-left-color: var(--deep-blue);
+  font-weight: 600;
+}
+
+.main-content { flex: 1; padding: 36px 48px; min-width: 0; }
+
+/* ── PANELS ── */
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* ── SECTION LABELS ── */
+.section-eyebrow {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 6px;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 6px;
+}
+.section-sub {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-bottom: 28px;
+  font-weight: 300;
+}
+
+/* ── SEARCH ── */
+.search-wrap { display: flex; gap: 12px; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+.search-box {
+  flex: 1;
+  max-width: 460px;
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: 7px;
+  padding: 9px 14px;
+  gap: 9px;
+  transition: border-color 0.2s;
+}
+.search-box:focus-within { border-color: var(--green); }
+.search-box input {
+  border: none; outline: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  color: var(--text-dark);
+  width: 100%;
+  background: transparent;
+}
+.search-box input::placeholder { color: #ccc; }
+.search-icon { color: var(--green); font-size: 15px; flex-shrink: 0; }
+
+/* ── PEOPLE GRID ── */
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+  gap: 14px;
+}
+
+.person-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 18px 18px 16px;
+  transition: box-shadow 0.2s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.person-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  border-radius: 9px 0 0 9px;
+}
+.person-card.loc-hl::before  { background: var(--hl-strip); }
+.person-card.loc-kgh::before { background: var(--kgh-strip); }
+.person-card.loc-acs::before { background: var(--acs-strip); }
+.person-card:hover { box-shadow: 0 6px 22px rgba(0,0,0,0.09); transform: translateY(-1px); }
+.person-card.hidden { display: none; }
+
+.person-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 3px;
+}
+.person-title {
+  font-size: 11px;
+  color: var(--text-mid);
+  line-height: 1.5;
+  margin-bottom: 11px;
+  font-weight: 400;
+}
+.person-meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
+.loc-tag {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 10px;
+}
+.loc-hl .loc-tag  { background: var(--tag-hl);  color: #1a4a2a; }
+.loc-kgh .loc-tag { background: var(--tag-kgh); color: #1a4a1a; }
+.loc-acs .loc-tag { background: var(--tag-acs); color: #4a2a1a; }
+.dept-tag { font-size: 10px; color: var(--text-light); font-weight: 500; }
+
+.person-contacts {
+  border-top: 1px solid #f0ebe2;
+  padding-top: 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.contact-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  font-size: 11px;
+  color: var(--text-mid);
+  line-height: 1.4;
+}
+.contact-row .ci { flex-shrink: 0; color: var(--sage); width: 14px; font-size: 12px; margin-top: 1px; }
+.contact-row a { color: var(--deep-blue); text-decoration: none; font-weight: 500; }
+.contact-row a:hover { text-decoration: underline; }
+.placeholder { color: #ccc; font-style: italic; }
+
+.manager-row {
+  margin-top: 9px;
+  font-size: 10px;
+  color: var(--text-light);
+}
+.manager-row span { color: var(--text-mid); font-weight: 600; }
+
+/* ── HELP CARDS ── */
+.help-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+.help-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+.help-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.08); }
+.help-card.hidden { display: none; }
+
+.help-header {
+  background: var(--deep-blue);
+  padding: 13px 17px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.help-icon { font-size: 16px; }
+.help-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+}
+.help-body { padding: 14px 17px; }
+.help-item {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 9px;
+  font-size: 12px;
+  line-height: 1.5;
+  align-items: flex-start;
+}
+.help-item:last-child { margin-bottom: 0; }
+.help-situation { color: var(--text-mid); flex: 1; }
+.help-who { font-weight: 700; color: var(--deep-blue); white-space: nowrap; text-align: right; }
+.help-divider { border: none; border-top: 1px solid #f0ebe2; margin: 8px 0; }
+
+/* ── ESCALATION ── */
+.escalation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 18px;
+}
+.esc-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  overflow: hidden;
+}
+.esc-card.hidden { display: none; }
+.esc-header {
+  background: var(--header-bg);
+  padding: 13px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 2px solid var(--green);
+}
+.esc-icon { font-size: 15px; }
+.esc-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--white);
+}
+.esc-body { padding: 14px 18px; }
+.esc-step {
+  display: flex;
+  gap: 11px;
+  align-items: flex-start;
+  margin-bottom: 9px;
+  font-size: 12px;
+}
+.esc-step:last-child { margin-bottom: 0; }
+.step-num {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--mist);
+  border: 1px solid #c8ddd0;
+  color: var(--deep-blue);
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.step-content { flex: 1; line-height: 1.5; }
+.step-who { font-weight: 700; color: var(--text-dark); }
+.step-note { color: var(--text-light); font-size: 11px; }
+.esc-note {
+  margin-top: 11px;
+  padding: 9px 11px;
+  background: #fff8f0;
+  border-left: 3px solid var(--soft-sand);
+  border-radius: 0 5px 5px 0;
+  font-size: 11px;
+  color: var(--text-mid);
+  line-height: 1.5;
+}
+
+/* ── NO RESULTS ── */
+.no-results {
+  grid-column: 1/-1;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-light);
+  font-size: 13px;
+}
+
+@media (max-width: 768px) {
+
+  /* ── Header ── */
+  .site-header { padding: 0 16px; }
+  .header-inner { flex-direction: column; align-items: flex-start; gap: 8px; padding: 16px 0; }
+  .header-brand { border-right: none; padding-right: 0; }
+  .header-brand h1 { font-size: 20px; }
+  .header-desc { display: none; }
+
+  /* ── Tab bar ── */
+  .tab-bar {
+    padding: 0 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .tab-bar::-webkit-scrollbar { display: none; }
+  .tab-btn { padding: 12px 14px; font-size: 9px; white-space: nowrap; }
+
+  /* ── Layout: stack sidebar above content ── */
+  .app-body { flex-direction: column; min-height: 0; }
+
+  /* ── Sidebar: horizontal scrolling chip strip ── */
+  .sidebar {
+    width: 100%;
+    height: auto !important;        /* override the calc() fixed height */
+    min-height: 0 !important;
+    position: static;
+    top: auto;
+    overflow-y: visible;            /* prevent clipping */
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 10px 0 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .sidebar::-webkit-scrollbar { display: none; }
+  .sidebar-section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 6px;
+    padding: 0 12px;
+    margin-bottom: 0;
+  }
+  #sidebar-people .sidebar-section:last-child { display: none; }
+  .sidebar-label { display: none; }
+  .sidebar-btn {
+    flex-shrink: 0;
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    border-left: 1.5px solid var(--border);
+    padding: 5px 12px;
+    font-size: 11px;
+    white-space: nowrap;
+    background: white;
+  }
+  .sidebar-btn.active {
+    background: var(--deep-blue);
+    border-color: var(--deep-blue);
+    color: white;
+    border-left-color: var(--deep-blue);
+  }
+
+  /* ── Main content ── */
+  .main-content { padding: 20px 16px; }
+
+  /* ── Section titles ── */
+  .section-title { font-size: 22px; }
+  .section-sub { margin-bottom: 16px; }
+
+  /* ── Search bar ── */
+  .search-wrap { margin-bottom: 16px; }
+  .search-box { padding: 8px 12px; }
+  .search-box input { font-size: 13px; }
+
+  /* ── People grid: single column ── */
+  .people-grid { grid-template-columns: 1fr; gap: 10px; }
+  .person-name { font-size: 16px; }
+  .person-title { font-size: 11px; }
+
+  /* ── Help grid: single column ── */
+  .help-grid { grid-template-columns: 1fr; gap: 12px; }
+
+  /* ── Escalation grid: single column ── */
+  .escalation-grid { grid-template-columns: 1fr; gap: 12px; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-brand">
+      <span class="header-eyebrow">Internal Resource</span>
+      <h1>Hoffman Landscapes /<br>Kent Greenhouse &amp; Gardens</h1>
+    </div>
+    <p class="header-desc">Associate Directory — find people, get help with common situations, and know when and how to escalate.</p>
+  </div>
+</header>
+
+<nav class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('people',this)">Find a Person</button>
+  <button class="tab-btn" onclick="switchTab('help',this)">I Need Help With...</button>
+  <button class="tab-btn" onclick="switchTab('escalation',this)">Escalation Paths</button>
+</nav>
+
+<div class="app-body">
+
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="sidebar">
+    <div class="sidebar-section" id="sidebar-people">
+      <span class="sidebar-label">By Location</span>
+      <button class="sidebar-btn active" onclick="filterPeople('loc','all',this)">All Locations</button>
+      <button class="sidebar-btn" onclick="filterPeople('loc','hl-wilton',this)">HL – Wilton</button>
+      <button class="sidebar-btn" onclick="filterPeople('loc','hl-stamford',this)">HL – Stamford</button>
+      <button class="sidebar-btn" onclick="filterPeople('loc','kgh',this)">Kent G&amp;G</button>
+      <button class="sidebar-btn" onclick="filterPeople('loc','acs',this)">Arbor Care</button>
+      <span class="sidebar-label" style="margin-top:16px;">By Department</span>
+      <button class="sidebar-btn" onclick="filterPeople('dept','all',this)">All Departments</button>
+      <button class="sidebar-btn" onclick="filterPeople('dept','leadership',this)">Senior Leadership</button>
+      <button class="sidebar-btn" onclick="filterPeople('dept','sales-design',this)">Sales &amp; Design</button>
+      <button class="sidebar-btn" onclick="filterPeople('dept','property-care',this)">Property Care</button>
+      <button class="sidebar-btn" onclick="filterPeople('dept','construction',this)">Construction</button>
+      <button class="sidebar-btn" onclick="filterPeople('dept','operations',this)">Operations</button>
+      <button class="sidebar-btn" onclick="filterPeople('dept','fleet',this)">Fleet &amp; Facilities</button>
+      <button class="sidebar-btn" onclick="filterPeople('dept','marketing',this)">Marketing</button>
+      <button class="sidebar-btn" onclick="filterPeople('dept','finance',this)">Finance &amp; Accounting</button>
+      <button class="sidebar-btn" onclick="filterPeople('dept','hr',this)">HR &amp; Admin</button>
+      <button class="sidebar-btn" onclick="filterPeople('dept','arborist',this)">Arborist</button>
+    </div>
+    <div class="sidebar-section" id="sidebar-help" style="display:none;">
+      <span class="sidebar-label">Jump to Topic</span>
+      <button class="sidebar-btn active" onclick="filterHelp('all',this)">All Topics</button>
+      <button class="sidebar-btn" onclick="filterHelp('hr',this)">HR &amp; People</button>
+      <button class="sidebar-btn" onclick="filterHelp('finance',this)">Finance &amp; Payroll</button>
+      <button class="sidebar-btn" onclick="filterHelp('fleet',this)">Fleet &amp; Vehicles</button>
+      <button class="sidebar-btn" onclick="filterHelp('safety',this)">Safety</button>
+      <button class="sidebar-btn" onclick="filterHelp('marketing',this)">Marketing &amp; Brand</button>
+      <button class="sidebar-btn" onclick="filterHelp('it',this)">IT &amp; Systems</button>
+      <button class="sidebar-btn" onclick="filterHelp('clients',this)">Clients</button>
+      <button class="sidebar-btn" onclick="filterHelp('operations',this)">Operations</button>
+    </div>
+    <div class="sidebar-section" id="sidebar-esc" style="display:none;">
+      <span class="sidebar-label">Jump to Path</span>
+      <button class="sidebar-btn active" onclick="filterEsc('all',this)">All Paths</button>
+      <button class="sidebar-btn" onclick="filterEsc('client',this)">Client Issues</button>
+      <button class="sidebar-btn" onclick="filterEsc('hr',this)">HR Matters</button>
+      <button class="sidebar-btn" onclick="filterEsc('injury',this)">Workplace Injury</button>
+      <button class="sidebar-btn" onclick="filterEsc('accident',this)">Vehicle Accident</button>
+      <button class="sidebar-btn" onclick="filterEsc('finance',this)">Payroll &amp; Finance</button>
+      <button class="sidebar-btn" onclick="filterEsc('legal',this)">Legal</button>
+      <button class="sidebar-btn" onclick="filterEsc('it',this)">IT &amp; Systems</button>
+      <button class="sidebar-btn" onclick="filterEsc('fleet',this)">Fleet &amp; Vehicles</button>
+      <button class="sidebar-btn" onclick="filterEsc('marketing',this)">Marketing</button>
+      <button class="sidebar-btn" onclick="filterEsc('property-care',this)">Property Care</button>
+      <button class="sidebar-btn" onclick="filterEsc('construction',this)">Construction</button>
+      <button class="sidebar-btn" onclick="filterEsc('vendor',this)">Vendors &amp; Subs</button>
+    </div>
+  </aside>
+
+  <!-- ══ MAIN ══ -->
+  <main class="main-content">
+
+    <!-- FIND A PERSON -->
+    <div class="panel active" id="panel-people">
+      <div class="section-eyebrow">Directory</div>
+      <div class="section-title">Find a Person</div>
+      <p class="section-sub">Search by name, title, or department — or filter by location or department on the left.</p>
+      <div class="search-wrap">
+        <div class="search-box">
+          <span class="search-icon">⌕</span>
+          <input type="text" id="peopleSearch" placeholder="Search name, title, department…" oninput="applyPeopleFilters()">
+        </div>
+      </div>
+      <div class="people-grid" id="peopleGrid"></div>
+      <div class="no-results" id="peopleNoResults" style="display:none;">No associates match your search.</div>
+    </div>
+
+    <!-- I NEED HELP WITH -->
+    <div class="panel" id="panel-help">
+      <div class="section-eyebrow">Quick Reference</div>
+      <div class="section-title">I Need Help With...</div>
+      <p class="section-sub">Find the right person for any common situation, fast.</p>
+      <div class="search-wrap">
+        <div class="search-box">
+          <span class="search-icon">⌕</span>
+          <input type="text" id="helpSearch" placeholder="Search topics (e.g. injury, business cards, payroll…)" oninput="searchHelp()">
+        </div>
+      </div>
+      <div class="help-grid" id="helpGrid">
+
+        <div class="help-card" data-cat="hr">
+          <div class="help-header"><span class="help-icon">👤</span><span class="help-title">HR &amp; People</span></div>
+          <div class="help-body">
+            <div class="help-item"><span class="help-situation">Onboarding / new hire setup</span><span class="help-who">MaryAnn Baccash</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">Uniforms &amp; workwear</span><span class="help-who">MaryAnn Baccash</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">Benefits questions</span><span class="help-who">MaryAnn Baccash</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">Time off policy questions</span><span class="help-who">MaryAnn Baccash</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">Time off requests</span><span class="help-who">Your Manager via Workday</span></div>
+          </div>
+        </div>
+
+        <div class="help-card" data-cat="finance">
+          <div class="help-header"><span class="help-icon">💰</span><span class="help-title">Finance &amp; Payroll</span></div>
+          <div class="help-body">
+            <div class="help-item"><span class="help-situation">Payroll questions</span><span class="help-who">MaryAnn Baccash</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">Expense questions / AP</span><span class="help-who">Gianina Serrano</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">Client invoicing / AR</span><span class="help-who">Linda Khounvongsa</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">General accounting</span><span class="help-who">Lesli Montenegro</span></div>
+          </div>
+        </div>
+
+        <div class="help-card" data-cat="fleet">
+          <div class="help-header"><span class="help-icon">🚛</span><span class="help-title">Fleet &amp; Vehicles</span></div>
+          <div class="help-body">
+            <div class="help-item"><span class="help-situation">Day-to-day fleet questions</span><span class="help-who">Erin Casey</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">Fuel pins, EZ Pass, Geotab</span><span class="help-who">Trishalynn Legen</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">Driver documentation</span><span class="help-who">Trishalynn Legen</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">Logistics &amp; scheduling</span><span class="help-who">Joe Napoli</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">Driver compliance / JJ Keller</span><span class="help-who">MaryAnn &amp; Gianina</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">Vehicle accident reporting</span><span class="help-who">See Escalation Paths</span></div>
+          </div>
+        </div>
+
+        <div class="help-card" data-cat="operations">
+          <div class="help-header"><span class="help-icon">🏗️</span><span class="help-title">Operations &amp; Supplies</span></div>
+          <div class="help-body">
+            <div class="help-item"><span class="help-situation">Small equipment / tool requests</span><span class="help-who">Erin Casey</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">Yard operations &amp; inventory</span><span class="help-who">Erin Casey</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">Facility maintenance</span><span class="help-who">Erin Casey</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">New vendor / subcontractor</span><span class="help-who">Your Direct Manager</span></div>
+          </div>
+        </div>
+
+        <div class="help-card" data-cat="safety">
+          <div class="help-header"><span class="help-icon">🦺</span><span class="help-title">Safety &amp; Injuries</span></div>
+          <div class="help-body">
+            <div class="help-item"><span class="help-situation">Safety supplies</span><span class="help-who">Chris DiMauro</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">Incident investigations</span><span class="help-who">Chris DiMauro</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">Non-emergency injury reporting</span><span class="help-who">MaryAnn Baccash</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">Workers comp claim</span><span class="help-who">MaryAnn Baccash</span></div>
+          </div>
+        </div>
+
+        <div class="help-card" data-cat="marketing">
+          <div class="help-header"><span class="help-icon">📣</span><span class="help-title">Marketing &amp; Brand</span></div>
+          <div class="help-body">
+            <div class="help-item"><span class="help-situation">Business cards</span><span class="help-who">Kelly Acevedo</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">Branded materials / signage</span><span class="help-who">Kelly Acevedo</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">New leads / CRM (Pipedrive)</span><span class="help-who">Anna Gluck</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">Content questions</span><span class="help-who">Anna Gluck → Kelly Acevedo</span></div>
+          </div>
+        </div>
+
+        <div class="help-card" data-cat="it">
+          <div class="help-header"><span class="help-icon">💻</span><span class="help-title">IT &amp; Systems</span></div>
+          <div class="help-body">
+            <div class="help-item"><span class="help-situation">Aspire questions</span><span class="help-who">Victoria Kennedy</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">Pipedrive questions</span><span class="help-who">Anna Gluck → Lindsay Weisenberger</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">Workday questions</span><span class="help-who">MaryAnn Baccash</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">All other IT support</span><span class="help-who">support@marianipremiergroup.com</span></div>
+          </div>
+        </div>
+
+        <div class="help-card" data-cat="clients">
+          <div class="help-header"><span class="help-icon">🤝</span><span class="help-title">Client Matters</span></div>
+          <div class="help-body">
+            <div class="help-item"><span class="help-situation">Client complaint or concern</span><span class="help-who">Your CR → Brian Cossari</span></div>
+            <hr class="help-divider">
+            <div class="help-item"><span class="help-situation">Legal or contract question</span><span class="help-who">Steve Dumark → MPG Legal</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ESCALATION PATHS -->
+    <div class="panel" id="panel-escalation">
+      <div class="section-eyebrow">Escalation Paths</div>
+      <div class="section-title">When &amp; How to Escalate</div>
+      <p class="section-sub">Start at Step 1. Move to the next step only if the issue remains unresolved.</p>
+      <div class="escalation-grid" id="escGrid">
+
+        <div class="esc-card" data-cat="client">
+          <div class="esc-header"><span class="esc-icon">🤝</span><span class="esc-title">Client Complaint or Service Issue</span></div>
+          <div class="esc-body">
+            <div class="esc-step"><div class="step-num">1</div><div class="step-content"><div class="step-who">Client Representative</div><div class="step-note">First point of contact for all client concerns</div></div></div>
+            <div class="esc-step"><div class="step-num">2</div><div class="step-content"><div class="step-who">Brian Cossari</div><div class="step-note">VP of Sales, Design &amp; Client Engagement</div></div></div>
+            <div class="esc-step"><div class="step-num">3</div><div class="step-content"><div class="step-who">Steve Dumark</div><div class="step-note">President</div></div></div>
+          </div>
+        </div>
+
+        <div class="esc-card" data-cat="hr">
+          <div class="esc-header"><span class="esc-icon">👤</span><span class="esc-title">HR Matter</span></div>
+          <div class="esc-body">
+            <div class="esc-step"><div class="step-num">1</div><div class="step-content"><div class="step-who">MaryAnn Baccash</div><div class="step-note">HR &amp; Office Manager — onboarding, uniforms, benefits, time off policy</div></div></div>
+            <div class="esc-step"><div class="step-num">2</div><div class="step-content"><div class="step-who">Steve Dumark</div><div class="step-note">President</div></div></div>
+            <div class="esc-step"><div class="step-num">3</div><div class="step-content"><div class="step-who">MPG HR</div><div class="step-note">MPG level</div></div></div>
+          </div>
+        </div>
+
+        <div class="esc-card" data-cat="injury">
+          <div class="esc-header"><span class="esc-icon">🦺</span><span class="esc-title">Workplace Injury</span></div>
+          <div class="esc-body">
+            <div class="esc-step"><div class="step-num">1</div><div class="step-content"><div class="step-who">MaryAnn Baccash</div><div class="step-note">Report all non-emergency injuries; handles workers comp claims</div></div></div>
+            <div class="esc-step"><div class="step-num">2</div><div class="step-content"><div class="step-who">Chris DiMauro</div><div class="step-note">Safety Manager — incident investigation</div></div></div>
+            <div class="esc-step"><div class="step-num">3</div><div class="step-content"><div class="step-who">MPG</div><div class="step-note">If workers comp claim requires further handling</div></div></div>
+          </div>
+        </div>
+
+        <div class="esc-card" data-cat="accident">
+          <div class="esc-header"><span class="esc-icon">🚛</span><span class="esc-title">Vehicle Accident</span></div>
+          <div class="esc-body">
+            <div class="esc-step"><div class="step-num">1</div><div class="step-content"><div class="step-who">Driver → Supervisor</div><div class="step-note">Driver reports accident immediately to their supervisor</div></div></div>
+            <div class="esc-step"><div class="step-num">2</div><div class="step-content"><div class="step-who">Erin Casey</div><div class="step-note">Supervisor submits accident report to Erin Casey</div></div></div>
+            <div class="esc-step"><div class="step-num">3</div><div class="step-content"><div class="step-who">Chris DiMauro</div><div class="step-note">Safety investigation conducted</div></div></div>
+            <div class="esc-step"><div class="step-num">4</div><div class="step-content"><div class="step-who">Trishalynn Legen</div><div class="step-note">Insurance claim handled if applicable</div></div></div>
+          </div>
+        </div>
+
+        <div class="esc-card" data-cat="finance">
+          <div class="esc-header"><span class="esc-icon">💰</span><span class="esc-title">Payroll or Expense Question</span></div>
+          <div class="esc-body">
+            <div class="esc-step"><div class="step-num">1a</div><div class="step-content"><div class="step-who">MaryAnn Baccash</div><div class="step-note">Payroll questions</div></div></div>
+            <div class="esc-step"><div class="step-num">1b</div><div class="step-content"><div class="step-who">Gianina Serrano</div><div class="step-note">Expenses &amp; accounts payable</div></div></div>
+            <div class="esc-step"><div class="step-num">1c</div><div class="step-content"><div class="step-who">Linda Khounvongsa</div><div class="step-note">Client invoicing &amp; accounts receivable</div></div></div>
+            <div class="esc-step"><div class="step-num">2</div><div class="step-content"><div class="step-who">Lesli Montenegro</div><div class="step-note">Accounting Manager — all unresolved finance issues</div></div></div>
+          </div>
+        </div>
+
+        <div class="esc-card" data-cat="legal">
+          <div class="esc-header"><span class="esc-icon">⚖️</span><span class="esc-title">Legal or Contract Question</span></div>
+          <div class="esc-body">
+            <div class="esc-step"><div class="step-num">1</div><div class="step-content"><div class="step-who">Steve Dumark</div><div class="step-note">President — first point of contact for all legal matters</div></div></div>
+            <div class="esc-step"><div class="step-num">2</div><div class="step-content"><div class="step-who">MPG Legal</div><div class="step-note">MPG Level</div></div></div>
+          </div>
+        </div>
+
+        <div class="esc-card" data-cat="it">
+          <div class="esc-header"><span class="esc-icon">💻</span><span class="esc-title">IT &amp; Systems Issue</span></div>
+          <div class="esc-body">
+            <div class="esc-step"><div class="step-num">1a</div><div class="step-content"><div class="step-who">Victoria Kennedy</div><div class="step-note">Aspire system questions</div></div></div>
+            <div class="esc-step"><div class="step-num">1b</div><div class="step-content"><div class="step-who">Anna Gluck → Lindsay Weisenberger</div><div class="step-note">Pipedrive questions</div></div></div>
+            <div class="esc-step"><div class="step-num">1c</div><div class="step-content"><div class="step-who">MaryAnn Baccash</div><div class="step-note">Workday questions</div></div></div>
+            <div class="esc-step"><div class="step-num">2</div><div class="step-content"><div class="step-who">MPG IT</div><div class="step-note">support@marianipremiergroup.com — all other issues &amp; final escalation</div></div></div>
+          </div>
+          <div class="esc-note">There is no escalation beyond MPG IT.</div>
+        </div>
+
+        <div class="esc-card" data-cat="fleet">
+          <div class="esc-header"><span class="esc-icon">🚛</span><span class="esc-title">Fleet or Vehicle Issue (Non-Accident)</span></div>
+          <div class="esc-body">
+            <div class="esc-step"><div class="step-num">1a</div><div class="step-content"><div class="step-who">Erin Casey</div><div class="step-note">Day-to-day fleet questions, yard, fueling, repairs</div></div></div>
+            <div class="esc-step"><div class="step-num">1b</div><div class="step-content"><div class="step-who">Trishalynn Legen</div><div class="step-note">Fuel pins, EZ Pass, Geotab, driver documentation</div></div></div>
+            <div class="esc-step"><div class="step-num">1c</div><div class="step-content"><div class="step-who">MaryAnn &amp; Gianina</div><div class="step-note">Driver compliance, JJ Keller training</div></div></div>
+            <div class="esc-step"><div class="step-num">2</div><div class="step-content"><div class="step-who">Joe Napoli</div><div class="step-note">Fleet, Facilities &amp; Logistics Manager</div></div></div>
+          </div>
+          <div class="esc-note">⚠️ New hires may not drive until JJ Keller training is fully completed.</div>
+        </div>
+
+        <div class="esc-card" data-cat="marketing">
+          <div class="esc-header"><span class="esc-icon">📣</span><span class="esc-title">Marketing &amp; Brand Request</span></div>
+          <div class="esc-body">
+            <div class="esc-step"><div class="step-num">1a</div><div class="step-content"><div class="step-who">Kelly Acevedo</div><div class="step-note">Business cards, branded materials, signage — final decision-maker</div></div></div>
+            <div class="esc-step"><div class="step-num">1b</div><div class="step-content"><div class="step-who">Anna Gluck</div><div class="step-note">New leads, CRM, content questions — escalates to Kelly if needed</div></div></div>
+          </div>
+        </div>
+
+        <div class="esc-card" data-cat="property-care">
+          <div class="esc-header"><span class="esc-icon">🌿</span><span class="esc-title">Property Care Issue (Operational)</span></div>
+          <div class="esc-body">
+            <div class="esc-step"><div class="step-num">1</div><div class="step-content"><div class="step-who">Client Representative</div><div class="step-note">All property care concerns start here</div></div></div>
+            <div class="esc-step"><div class="step-num">2</div><div class="step-content"><div class="step-who">Pete Lawrenia <em style="font-weight:300;font-size:10px;">(Wilton &amp; Kent)</em> or Marco Vitiello <em style="font-weight:300;font-size:10px;">(Stamford)</em></div><div class="step-note">Director of Property Care for the relevant region</div></div></div>
+            <div class="esc-step"><div class="step-num">3</div><div class="step-content"><div class="step-who">Steve Dumark</div><div class="step-note">President</div></div></div>
+          </div>
+        </div>
+
+        <div class="esc-card" data-cat="construction">
+          <div class="esc-header"><span class="esc-icon">🏗️</span><span class="esc-title">Construction / Installation Issue</span></div>
+          <div class="esc-body">
+            <div class="esc-step"><div class="step-num">1</div><div class="step-content"><div class="step-who">Landscape &amp; Pool Construction Manager</div><div class="step-note">Your project's Construction Manager is first point of contact</div></div></div>
+            <div class="esc-step"><div class="step-num">2</div><div class="step-content"><div class="step-who">Kevin Begnal</div><div class="step-note">VP of Operations, Installation and Enhancements</div></div></div>
+            <div class="esc-step"><div class="step-num">3</div><div class="step-content"><div class="step-who">Steve Dumark</div><div class="step-note">President</div></div></div>
+          </div>
+        </div>
+
+        <div class="esc-card" data-cat="vendor">
+          <div class="esc-header"><span class="esc-icon">📋</span><span class="esc-title">New Vendor or Subcontractor</span></div>
+          <div class="esc-body">
+            <div class="esc-step"><div class="step-num">1</div><div class="step-content"><div class="step-who">Your Direct Manager</div><div class="step-note">All new vendor or subcontractor relationships start with manager approval</div></div></div>
+            <div class="esc-step"><div class="step-num">2</div><div class="step-content"><div class="step-who">Steve Dumark</div><div class="step-note">President — final approval</div></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// ══ PEOPLE DATA ══
+const PEOPLE = [
+  // Leadership
+  { name:'Steve Dumark', title:'President', loc:'hl-wilton', dept:'leadership', manager:'Mike Hoffman', phone:'ext: — / c: 203.943.9484', email:'s.dumark@hoffmanlandscapes.com' },
+  { name:'Brian Cossari', title:'Landscape Architect, VP of Sales, Design & Client Engagement', loc:'kgh', dept:'leadership', manager:'Steve Dumark', phone:'ext: 3300 / c: 203.943.9494', email:'bcossari@kentgreenhouse.com' },
+  { name:'Kevin Begnal', title:'Vice President of Operations, Installation and Enhancements', loc:'hl-wilton', dept:'leadership', manager:'Steve Dumark', phone:'ext: 3401 / c: 203.515.1722', email:'k.begnal@hoffmanlandscapes.com' },
+  // Sales & Design
+  { name:'Chris Elkow', title:'Landscape Designer, Landscape & Pool Construction Sales', loc:'kgh', dept:'sales-design', manager:'Brian Cossari', phone:'ext: 3303 / c: 203.810.7442', email:'celkow@kentgreenhouse.com' },
+  { name:'Darrell Cherniske', title:'Client Rep & Business Developer', loc:'kgh', dept:'sales-design', manager:'Brian Cossari', phone:'ext: 3302 / c: 203.810.9700', email:'dcherniske@kentgreenhouse.com' },
+  { name:'Joe DeMarco', title:'Estimator', loc:'hl-wilton', dept:'sales-design', manager:'Brian Cossari', phone:'c: 203.253.1626', email:'j.demarco@hoffmanlandscapes.com' },
+  { name:'Joshua Geter', title:'Landscape Designer, Landscape & Pool Construction Sales', loc:'hl-wilton', dept:'sales-design', manager:'Brian Cossari', phone:'ext: 3413 / c: 203.515.1227', email:'j.geter@hoffmanlandscapes.com' },
+  { name:'Matt Biron', title:'Landscape Architect, Landscape & Pool Construction Sales', loc:'hl-wilton', dept:'sales-design', manager:'Brian Cossari', phone:'ext: 3410 / c: 203.515.1694', email:'m.biron@hoffmanlandscapes.com' },
+  { name:'Matthew Troy', title:'Landscape Designer, Landscape & Pool Construction Sales', loc:'hl-wilton', dept:'sales-design', manager:'Brian Cossari', phone:'ext: 3126 / c: 203.705.7827', email:'m.troy@hoffmanlandscapes.com' },
+  { name:'Michael Walker', title:'Business Developer', loc:'hl-wilton', dept:'sales-design', manager:'Brian Cossari', phone:'ext: 3201 / c: 203.505.3904', email:'m.walker@hoffmanlandscapes.com' },
+  { name:'Monica Romano', title:'Garden Center Manager', loc:'kgh', dept:'sales-design', manager:'Brian Cossari', phone:'ext: 3316 / c: 203.644.0614', email:'mromano@kentgreenhouse.com' },
+  { name:'Tao Ding', title:'Landscape Designer', loc:'kgh', dept:'sales-design', manager:'Brian Cossari', phone:'ext: 3301 / c: 203.939.5175', email:'tding@kentgreenhouse.com' },
+  { name:'William Romaniello', title:'Landscape Designer', loc:'hl-wilton', dept:'sales-design', manager:'Brian Cossari', phone:'ext: 3415 / c: 475.232.5651', email:'w.romaniello@hoffmanlandscapes.com' },
+  // Property Care
+  { name:'Pete Lawrenia', title:'Director of Property Care – Wilton & Kent', loc:'hl-wilton', dept:'property-care', manager:'Steve Dumark', phone:'ext: 3130 / c: 203.515.1276', email:'p.lawrenia@hoffmanlandscapes.com' },
+  { name:'Marco Vitiello', title:'Director of Property Care – Stamford', loc:'hl-wilton', dept:'property-care', manager:'Steve Dumark', phone:'ext: 3131 / c: 203.939.3711', email:'m.vitiello@hoffmanlandscapes.com' },
+  { name:'Arik Carlson', title:'Senior Client Representative', loc:'hl-stamford', dept:'property-care', manager:'Steve Dumark', phone:'c: 203.939.2571', email:'a.carlson@hoffmanlandscapes.com' },
+  { name:'Bill San Giacomo', title:'Client Representative', loc:'hl-wilton', dept:'property-care', manager:'Pete Lawrenia', phone:'ext: 3132 / c: 203.943.9489', email:'b.sangiacomo@hoffmanlandscapes.com' },
+  { name:'Brian Greve', title:'Client Rep & Business Developer', loc:'hl-wilton', dept:'property-care', manager:'Marco Vitiello', phone:'ext: 3112 / c: 203.456.5425', email:'b.greve@hoffmanlandscapes.com' },
+  { name:'Christopher DiMauro', title:'Client Representative & Safety Manager', loc:'hl-wilton', dept:'property-care', manager:'Pete Lawrenia', phone:'ext: 3415 / c: 475.232.5651', email:'c.dimauro@hoffmanlandscapes.com' },
+  { name:'Cynthia Moore', title:'Client Representative', loc:'hl-stamford', dept:'property-care', manager:'Marco Vitiello', phone:'ext: 3135 / c: 203.451.8305', email:'c.moore@hoffmanlandscapes.com' },
+  { name:'Daniel Shea', title:'Enhancement Manager', loc:'hl-stamford', dept:'property-care', manager:'Pete Lawrenia', phone:'ext: 3211 / c: 203.939.4248', email:'dshea@hoffmanlandscapes.com' },
+  { name:'Daniel Soderstrom', title:'Enhancement Manager / Client Rep', loc:'kgh', dept:'property-care', manager:'Pete Lawrenia', phone:'ext: 3305 / c: 959.799.4480', email:'dsoderstrom@kentgreenhouse.com' },
+  { name:'Emma Clark', title:'Fine Gardening Manager', loc:'hl-wilton', dept:'property-care', manager:'Steve Dumark', phone:'c: 203.595.1466', email:'e.clark@hoffmanlandscapes.com' },
+  { name:'Frank Marino', title:'Client Representative', loc:'hl-stamford', dept:'property-care', manager:'Marco Vitiello', phone:'c: 203.939.3600', email:'f.marino@hoffmanlandscapes.com' },
+  { name:'Janice Sniffin', title:'Fine Gardening Manager', loc:'hl-stamford', dept:'property-care', manager:'Marco Vitiello', phone:'c: 203.939.2689', email:'j.sniffin@hoffmanlandscapes.com' },
+  { name:'Justin Nickerson', title:'Client Representative', loc:'hl-stamford', dept:'property-care', manager:'Marco Vitiello', phone:'ext: 3133 / c: 203.984.0437', email:'j.nickerson@hoffmanlandscapes.com' },
+  { name:'Kevin Lafond', title:'Client Representative', loc:'kgh', dept:'property-care', manager:'Pete Lawrenia', phone:'ext: 3304 / c: 959.229.1106', email:'klafond@kentgreenhouse.com' },
+  { name:'Kevin Sharon', title:'Irrigation & Lighting Manager', loc:'hl-wilton', dept:'property-care', manager:'Pete Lawrenia', phone:'ext: 3124 / c: 203.515.6294', email:'k.sharon@hoffmanlandscapes.com' },
+  { name:'Kyle Waterman', title:'Client Representative', loc:'hl-wilton', dept:'property-care', manager:'Pete Lawrenia', phone:'ext: 3134 / c: 203.291.9421', email:'k.waterman@hoffmanlandscapes.com' },
+  { name:'Matthew Grossbauer', title:'Client Representative – Property Care', loc:'hl-wilton', dept:'property-care', manager:'Pete Lawrenia', phone:'ext: 3123 / c: 203.703.1861', email:'m.grossbauer@hoffmanlandscapes.com' },
+  { name:'Max Levine', title:'Client Representative', loc:'hl-stamford', dept:'property-care', manager:'Marco Vitiello', phone:'ext: 3203 / c: 203.703.1592', email:'m.levine@hoffmanlandscapes.com' },
+  { name:'Nicholas Saviano', title:'Lawn & Plant Healthcare Manager', loc:'hl-wilton', dept:'property-care', manager:'Pete Lawrenia', phone:'ext: 3136 / c: 203.914.4166', email:'n.saviano@hoffmanlandscapes.com' },
+  { name:'Patrick Lalor', title:'Production Manager', loc:'kgh', dept:'property-care', manager:'Pete Lawrenia', phone:'ext: 3317 / c: 203.515.1751', email:'plalor@kentgreenhouse.com' },
+  { name:'Rainer Ippolito', title:'Landscape Enhancement Manager', loc:'hl-stamford', dept:'property-care', manager:'Marco Vitiello', phone:'c: 203.962.1024', email:'r.ippolito@hoffmanlandscapes.com' },
+  { name:'Ryan Medeiros', title:'Client Representative', loc:'hl-wilton', dept:'property-care', manager:'Pete Lawrenia', phone:'c: 475.279.0042', email:'r.medeiros@hoffmanlandscapes.com' },
+  { name:'Wesley Fagan', title:'Client Representative', loc:'hl-stamford', dept:'property-care', manager:'Arik Carlson', phone:'ext: 3119 / c: 203.943.9491', email:'w.fagan@hoffmanlandscapes.com' },
+  { name:'Wesley Rodrigues', title:'Production Manager', loc:'hl-wilton', dept:'property-care', manager:'Pete Lawrenia', phone:'c: 203.451.8306', email:'w.rodrigues@hoffmanlandscapes.com' },
+  // Construction
+  { name:'Brendan Begnal', title:'Landscape & Pool Construction Manager', loc:'kgh', dept:'construction', manager:'Kevin Begnal', phone:'c: 203.399.7287', email:'bbegnal@kentgreenhouse.com' },
+  { name:'Jesse Cole', title:'Landscape & Pool Construction Manager', loc:'kgh', dept:'construction', manager:'Kevin Begnal', phone:'ext: 3315 / c: 203.644.0291', email:'jcole@kentgreenhouse.com' },
+  { name:'Joe Chervansky', title:'Landscape & Pool Manager', loc:'hl-wilton', dept:'construction', manager:'Kevin Begnal', phone:'c: 203.399.2547', email:'j.chervansky@hoffmanlandscapes.com' },
+  { name:'Lindsey Tomao', title:'Landscape & Pool Construction Manager', loc:'hl-wilton', dept:'construction', manager:'Kevin Begnal', phone:'c: 203.970.5612', email:'l.tomao@hoffmanlandscapes.com' },
+  // Operations
+  { name:'Victoria Kennedy', title:'Operations Systems Manager', loc:'hl-wilton', dept:'operations', manager:'Steve Dumark', phone:'ext: 3111', email:'v.kennedy@hoffmanlandscapes.com' },
+  { name:'Linda Khounvongsa', title:'Construction Administrator & Accounts Receivable', loc:'hl-wilton', dept:'operations', manager:'Victoria Kennedy', phone:'ext: 3118 / c: 203.913.3424', email:'l.khounvongsa@hoffmanlandscapes.com' },
+  { name:'Tina Bruno', title:'Property Care Administrator', loc:'hl-wilton', dept:'operations', manager:'Victoria Kennedy', phone:'ext: 3152 / c: 475.559.2395', email:'t.bruno@hoffmanlandscapes.com' },
+  // Fleet & Facilities
+  { name:'Joe Napoli', title:'Fleet, Facilities & Logistics Manager', loc:'hl-wilton', dept:'fleet', manager:'Steve Dumark', phone:'ext: 3129 / c: 203.456.4851', email:'j.napoli@hoffmanlandscapes.com' },
+  { name:'Erin Casey', title:'Fleet & Facilities Manager', loc:'hl-wilton', dept:'fleet', manager:'Joe Napoli', phone:'c: 203.939.6657', email:'e.casey@hoffmanlandscapes.com' },
+  { name:'Trishalynn Legen', title:'Northeast Region Fleet Analyst', loc:'hl-wilton', dept:'fleet', manager:'Rob Odom (MPG)', phone:'c: 203.470.5818', email:'trishalynnl@glengatecompany.com' },
+  // Marketing
+  { name:'Kelly Acevedo', title:'Director of Marketing & Communications', loc:'hl-wilton', dept:'marketing', manager:'Steve Dumark', phone:'ext: 3114 / c: 203.943.9486', email:'k.acevedo@hoffmanlandscapes.com' },
+  { name:'Anna Gluck', title:'Associate Marketing Analyst / Content Coordinator', loc:'hl-wilton', dept:'marketing', manager:'Kelly Acevedo', phone:'ext: 3137 / c: 203.939.2177', email:'agluck@hoffmanlandscapes.com' },
+  // Finance & Accounting
+  { name:'Lesli Montenegro', title:'Accounting Manager', loc:'hl-wilton', dept:'finance', manager:'Jason Scott (GG)', phone:'c: 203.460.0486', email:'leslim@glengatecompany.com' },
+  { name:'Gianina Serrano', title:'Accounts Payable', loc:'hl-wilton', dept:'finance', manager:'Lesli Montenegro', phone:'ext: 3113', email:'g.serrano@hoffmanlandscapes.com' },
+  // HR & Admin
+  { name:'MaryAnn Baccash', title:'Human Resources & Office Manager', loc:'hl-wilton', dept:'hr', manager:'Steve Dumark', phone:'ext: 3110', email:'m.baccash@hoffmanlandscapes.com' },
+  // Arborist
+  { name:'Christopher Busak', title:'ISA Board Certified Master Arborist', loc:'acs', dept:'arborist', manager:'Steve Dumark', phone:'c: 203.399.7819', email:'chrisb@arborcarespecialists.com' },
+  { name:'Brycen Sterkel', title:'Sales Arborist', loc:'acs', dept:'arborist', manager:'Christopher Busak', phone:'c: 203.962.7360', email:'brycens@arborcarespecialists.com' },
+];
+
+const LOC_LABELS = { 'hl-wilton':'HL – Wilton', 'hl-stamford':'HL – Stamford', 'kgh':'Kent G&G', 'acs':'Arbor Care' };
+const DEPT_LABELS = {
+  'leadership':'Senior Leadership','sales-design':'Sales & Design','property-care':'Property Care',
+  'construction':'Construction','operations':'Operations','fleet':'Fleet & Facilities',
+  'marketing':'Marketing','finance':'Finance & Accounting','hr':'HR & Admin','arborist':'Arborist'
+};
+
+let activeLocFilter = 'all';
+let activeDeptFilter = 'all';
+
+function locClass(loc) {
+  if (loc === 'hl-wilton' || loc === 'hl-stamford') return 'loc-hl';
+  if (loc === 'kgh') return 'loc-kgh';
+  return 'loc-acs';
+}
+
+function lastName(n) { const p = n.trim().split(' '); return p[p.length-1].toLowerCase(); }
+PEOPLE.sort((a,b) => {
+  const last = lastName(a.name).localeCompare(lastName(b.name));
+  if (last !== 0) return last;
+  return a.name.split(' ')[0].toLowerCase().localeCompare(b.name.split(' ')[0].toLowerCase());
+});
+
+function buildPeopleCards() {
+  const grid = document.getElementById('peopleGrid');
+  grid.innerHTML = '';
+  PEOPLE.forEach(p => {
+    const lc = locClass(p.loc);
+    const card = document.createElement('div');
+    card.className = `person-card ${lc}`;
+    card.dataset.name = p.name.toLowerCase();
+    card.dataset.title = p.title.toLowerCase();
+    card.dataset.dept = p.dept;
+    card.dataset.loc = p.loc;
+    card.dataset.deptlabel = (DEPT_LABELS[p.dept]||'').toLowerCase();
+
+    const phoneHtml = p.phone
+      ? `<a href="tel:${p.phone.replace(/[^0-9]/g,'')}">${p.phone}</a>`
+      : `<span class="placeholder">Phone — add when available</span>`;
+    const emailHtml = p.email
+      ? `<a href="mailto:${p.email}">${p.email}</a>`
+      : `<span class="placeholder">Email — add when available</span>`;
+
+    card.innerHTML = `
+      <div class="person-name">${p.name}</div>
+      <div class="person-title">${p.title}</div>
+      <div class="person-meta">
+        <span class="loc-tag">${LOC_LABELS[p.loc]||p.loc}</span>
+        <span class="dept-tag">${DEPT_LABELS[p.dept]||p.dept}</span>
+      </div>
+      <div class="person-contacts">
+        <div class="contact-row"><span class="ci">📞</span>${phoneHtml}</div>
+        <div class="contact-row"><span class="ci">✉</span>${emailHtml}</div>
+      </div>
+      <div class="manager-row">Reports to: <span>${p.manager}</span></div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function applyPeopleFilters() {
+  const q = document.getElementById('peopleSearch').value.toLowerCase().trim();
+  let visible = 0;
+  document.querySelectorAll('.person-card').forEach(card => {
+    const matchSearch = !q || card.dataset.name.includes(q) || card.dataset.title.includes(q) || card.dataset.deptlabel.includes(q);
+    const matchLoc  = activeLocFilter  === 'all' || card.dataset.loc  === activeLocFilter;
+    const matchDept = activeDeptFilter === 'all' || card.dataset.dept === activeDeptFilter;
+    const show = matchSearch && matchLoc && matchDept;
+    card.classList.toggle('hidden', !show);
+    if (show) visible++;
+  });
+  document.getElementById('peopleNoResults').style.display = visible === 0 ? 'block' : 'none';
+}
+
+function filterPeople(type, val, btn) {
+  if (type === 'loc') { activeLocFilter = val; activeDeptFilter = 'all'; }
+  else                { activeDeptFilter = val; activeLocFilter = 'all'; }
+  document.querySelectorAll('#sidebar-people .sidebar-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyPeopleFilters();
+}
+
+function searchHelp() {
+  const q = document.getElementById('helpSearch').value.toLowerCase().trim();
+  document.querySelectorAll('.help-card').forEach(card => {
+    card.classList.toggle('hidden', q && !card.textContent.toLowerCase().includes(q));
+  });
+}
+
+function filterHelp(cat, btn) {
+  document.querySelectorAll('#sidebar-help .sidebar-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.help-card').forEach(card => {
+    card.classList.toggle('hidden', cat !== 'all' && card.dataset.cat !== cat);
+  });
+}
+
+function filterEsc(cat, btn) {
+  document.querySelectorAll('#sidebar-esc .sidebar-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.esc-card').forEach(card => {
+    card.classList.toggle('hidden', cat !== 'all' && card.dataset.cat !== cat);
+  });
+}
+
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+  document.getElementById('sidebar-people').style.display = tab === 'people'     ? '' : 'none';
+  document.getElementById('sidebar-help').style.display   = tab === 'help'       ? '' : 'none';
+  document.getElementById('sidebar-esc').style.display    = tab === 'escalation' ? '' : 'none';
+}
+
+buildPeopleCards();
+</script>
+</body>
+</html>
